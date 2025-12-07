@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise 🎉💖</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap');
+
+*{margin:0; padding:0; box-sizing:border-box;}
+
+body{
+    font-family:'Poppins', sans-serif;
+    overflow:hidden;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    animation:gradientBG 12s infinite alternate;
+    background:linear-gradient(135deg, #ff9a9e, #fad0c4);
+}
+
+/* Name Title */
+#nameBox{
+    font-size:55px;
+    font-weight:700;
+    color:white;
+    text-shadow:0 4px 20px rgba(0,0,0,0.4);
+    margin-bottom:20px;
+    animation:fadeDown 1.6s ease-out forwards;
+    opacity:0;
+}
+@keyframes fadeDown{
+    0%{opacity:0; transform:translateY(-40px);}
+    100%{opacity:1; transform:translateY(0);}
+}
+
+/* OPEN LETTER FLIPBOOK */
+.letter{
+    width:200px;
+    height:140px;
+    position:relative;
+    perspective:1000px;
+    z-index:10;
+}
+
+/* Envelope with flap */
+.envelope{
+    width:100%;
+    height:100%;
+    background:#ff4d6d;
+    border-radius:10px;
+    position:absolute;
+    top:0;
+    left:0;
+    transform-origin:top;
+    transition: transform 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    cursor:pointer;
+}
+
+/* Paper inside envelope */
+.paper{
+    width:90%;
+    height:110%;
+    background:#fffaf0;
+    position:absolute;
+    top:10px;
+    left:5%;
+    border-radius:5px;
+    font-size:20px;
+    font-weight:bold;
+    color:#ff4d6d;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    transform:translateY(120px) rotateX(20deg) rotateZ(-2deg);
+    transition: transform 1.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.1),
+                inset 2px 2px 6px rgba(0,0,0,0.05),
+                0 5px 15px rgba(0,0,0,0.15);
+    background-image: 
+        radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+        radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px),
+        linear-gradient(rgba(0,0,0,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.02) 1px, transparent 1px);
+    background-size:20px 20px, 20px 20px, 100% 2px, 2px 100%;
+    background-position:0 0,10px 10px, 0 0, 0 0;
+    cursor:pointer;
+}
+
+/* Open state */
+.letter.open .envelope{
+    transform:rotateX(180deg);
+}
+.letter.open .paper{
+    transform:translateY(0) rotateX(0deg) rotateZ(0deg);
+}
+
+/* Floating animation */
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
+/* Surprise Box */
+#surpriseBox{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) scale(0.5);
+    width:80%;
+    max-width:650px;
+    background:rgba(255,255,255,0.95);
+    border-radius:25px;
+    padding:30px;
+    text-align:center;
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 40px rgba(0,0,0,0.3);
+    animation:popup 0.8s forwards;
+    z-index:20;
+}
+@keyframes popup{
+    0%{opacity:0; transform:translate(-50%, -40%) scale(0.5);}
+    100%{opacity:1; transform:translate(-50%, -50%) scale(1);}
+}
+
+/* Photo */
+#photo{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+    border:6px solid #ff8fa3;
+    object-fit:cover;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    animation:popIn 1.2s forwards;
+    opacity:0;
+}
+@keyframes popIn{
+    0%{opacity:0; transform:scale(0.5);}
+    100%{opacity:1; transform:scale(1);}
+}
+
+/* Handwritten Message */
+#handText{
+    font-family:'Pacifico';
+    font-size:30px;
+    color:#ff4d6d;
+    margin-top:20px;
+    white-space:pre-line;
+    opacity:0;
+    width:100%;
+    overflow:hidden;
+    animation:handwriting 5s steps(80) forwards;
+}
+@keyframes handwriting{
+    from{opacity:1; width:0;}
+    to{opacity:1; width:100%;}
+}
+
+/* Button for special section page */
+#specialBtn{
+    margin-top:20px;
+    padding:12px 25px;
+    font-size:20px;
+    border:none;
+    border-radius:12px;
+    background:#ff4d6d;
+    color:white;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+#specialBtn:hover{
+    transform:scale(1.05);
+    background:#ff0054;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:#ff4d6d;
+    transform:rotate(45deg);
+    animation:heartFloat 6s linear infinite;
+}
+.heart:before, .heart:after{
+    content:"";
+    position:absolute;
+    width:20px;
+    height:20px;
+    background:#ff4d6d;
+    border-radius:50%;
+}
+.heart:before{top:-10px; left:0;}
+.heart:after{left:-10px; top:0;}
+@keyframes heartFloat{
+    0%{transform:translateY(0) rotate(45deg); opacity:1;}
+    100%{transform:translateY(-700px) rotate(45deg); opacity:0;}
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+}
+</style>
+</head>
+<body>
+
+<canvas id="fireworksCanvas"></canvas>
+
+<div id="nameBox">Happy Birthday <span style="color:#ff0054;">Ara</span> 💖</div>
+
+<!-- LETTER FLIPBOOK -->
+<div class="letter">
+    <div class="envelope" id="envelope"></div>
+    <div class="paper" id="paper">Open Me 💖</div>
+</div>
+
+<!-- Surprise Box -->
+<div id="surpriseBox">
+    <img id="photo" src="pic3.jpg">
+    <h2 style="font-size:40px; margin-top:20px;">🎉 Surprise! 🎂</h2>
+    <div id="handText">
+        Wishing you a magical birthday,
+        filled with love, joy, and endless smiles.
+        You are truly special. 💖✨
+    </div>
+    <!-- Button linking to separate page -->
+    <a href="special.html"><button id="specialBtn">Something Special 💖</button></a>
+</div>
+
+<script>
+/* Click on envelope or paper opens the letter */
+document.getElementById("envelope").onclick = openLetter;
+document.getElementById("paper").onclick = openLetter;
+
+function openLetter(){
+    const letter = document.querySelector(".letter");
+    if(!letter.classList.contains("open")){
+        letter.classList.add("open");
+        setTimeout(()=>{launchSurprise();},800);
+    }
+}
+
+/* Launch Surprise */
+function launchSurprise(){
+    document.getElementById("surpriseBox").style.display = "block";
+    startConfetti();
+    startFireworks();
+}
+
+/* Floating Hearts Generator */
+function createHeart(){
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.style.left = Math.random()*window.innerWidth + "px";
+    heart.style.bottom = "0px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(), 6000);
+}
+setInterval(createHeart, 500);
+
+/* Interactive hearts on click */
+document.addEventListener("click", (e)=>{
+    let h = document.createElement("div");
+    h.innerHTML = "💖";
+    h.style.position = "fixed";
+    h.style.left = e.clientX + "px";
+    h.style.top = e.clientY + "px";
+    h.style.fontSize = "30px";
+    h.style.pointerEvents = "none";
+    h.style.animation = "popHeart 1s forwards";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),1000);
+});
+const styleEl = document.createElement("style");
+styleEl.innerHTML = `
+@keyframes popHeart {
+    0%{transform:scale(0.3); opacity:1;}
+    70%{transform:scale(1.8);}
+    100%{transform:scale(0); opacity:0;}
+}`;
+document.head.appendChild(styleEl);
+
+/* Confetti Explosion */
+function startConfetti(){
+    const jsConfetti = new JSConfetti();
+    jsConfetti.addConfetti({
+        emojis: ['🎉','🎈','💖','✨','🎂'],
+        emojiSize: 40,
+        confettiNumber: 60
+    });
+}
+
+/* Fireworks Animation */
+function startFireworks(){
+    const canvas = document.getElementById("fireworksCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
+
+    function createParticle(x, y){
+        for(let i=0;i<60;i++){
+            particles.push({
+                x, y,
+                radius: Math.random()*3,
+                color:`hsl(${Math.random()*360},100%,60%)`,
+                speedX: Math.random()*4 - 2,
+                speedY: Math.random()*4 - 2,
+                life:100
+            });
+        }
+    }
+
+    function animate(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        particles.forEach((p, index)=>{
+            p.x += p.speedX;
+            p.y += p.speedY;
+            p.life--;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI*2);
+            ctx.fillStyle = p.color;
+            ctx.fill();
+            if(p.life <= 0) particles.splice(index,1);
+        });
+        requestAnimationFrame(animate);
+    }
+
+    setInterval(()=>{createParticle(Math.random()*canvas.width, Math.random()*canvas.height/2);},700);
+    animate();
+}
+
+/* JS Confetti Library */
+class JSConfetti{
+    constructor(){this.canvas=document.createElement('canvas');this.canvas.style.position='fixed';this.canvas.style.top=0;this.canvas.style.left=0;this.canvas.style.pointerEvents='none';document.body.appendChild(this.canvas);this.ctx=this.canvas.getContext('2d');this.resize();window.addEventListener('resize',()=>this.resize());this.confetti=[];this.animate();}
+    resize(){this.canvas.width=window.innerWidth; this.canvas.height=window.innerHeight;}
+    addConfetti({emojis,emojiSize,confettiNumber}){for(let i=0;i<confettiNumber;i++){this.confetti.push({emoji:emojis[Math.floor(Math.random()*emojis.length)],size:emojiSize,x:Math.random()*this.canvas.width,y:this.canvas.height,speed:Math.random()*3+2});}}
+    animate(){this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);this.confetti.forEach((c,i)=>{this.ctx.font=c.size+"px serif";this.ctx.fillText(c.emoji,c.x,c.y);c.y-=c.speed;if(c.y<0)this.confetti.splice(i,1);});requestAnimationFrame(()=>this.animate());}
+}
+</script>
+</body>
+</html>
