@@ -8,7 +8,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700&display=swap');
 
 body{
-    margin:0; padding:0;
+    margin:0; 
+    padding:0;
     font-family:'Poppins', sans-serif;
     height:100vh;
     display:flex;
@@ -16,7 +17,7 @@ body{
     align-items:center;
     text-align:center;
     color:white;
-    background: url('pic1.jpg');
+    background: url('pic1.jpg') no-repeat center center/cover;
     backdrop-filter:blur(5px);
 }
 
@@ -26,6 +27,8 @@ body{
     border-radius:25px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.5);
     animation:fadeUp 1.5s forwards;
+    max-width: 800px;
+    width: 90%;
 }
 
 #specialSection h2{
@@ -44,9 +47,38 @@ body{
     text-shadow: 0 0 10px #ff8fa3;
 }
 
+/* Animation */
 @keyframes fadeUp{
     from{opacity:0; transform:translateY(30px);}
     to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width:768px){
+    #specialSection{
+        padding:35px;
+    }
+    #specialSection h2{
+        font-size:35px;
+    }
+    #specialSection ul{
+        font-size:20px;
+        line-height:1.8;
+    }
+}
+
+@media (max-width:480px){
+    #specialSection{
+        padding:25px;
+        border-radius:20px;
+    }
+    #specialSection h2{
+        font-size:28px;
+    }
+    #specialSection ul{
+        font-size:18px;
+        line-height:1.6;
+    }
 }
 </style>
 </head>
@@ -66,3 +98,4 @@ body{
 
 </body>
 </html>
+
