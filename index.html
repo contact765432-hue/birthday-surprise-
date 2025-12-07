@@ -99,12 +99,6 @@ body{
     transform:translateY(0) rotateX(0deg) rotateZ(0deg);
 }
 
-/* Floating animation */
-@keyframes bounce{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
-}
-
 /* Surprise Box */
 #surpriseBox{
     display:none;
@@ -210,6 +204,64 @@ canvas{
     width:100%;
     height:100%;
     pointer-events:none;
+}
+
+/* ====== RESPONSIVE STYLES ====== */
+@media only screen and (max-width:768px){
+    #nameBox{
+        font-size:40px;
+        text-align:center;
+    }
+    .letter{
+        width:160px;
+        height:110px;
+    }
+    .paper{
+        font-size:16px;
+    }
+    #surpriseBox{
+        width:90%;
+        padding:20px;
+    }
+    #photo{
+        width:140px;
+        height:140px;
+    }
+    #handText{
+        font-size:22px;
+    }
+    #specialBtn{
+        font-size:18px;
+        padding:10px 20px;
+    }
+}
+
+@media only screen and (max-width:480px){
+    #nameBox{
+        font-size:32px;
+    }
+    .letter{
+        width:140px;
+        height:100px;
+    }
+    .paper{
+        font-size:14px;
+    }
+    #surpriseBox{
+        width:95%;
+        padding:15px;
+    }
+    #photo{
+        width:120px;
+        height:120px;
+    }
+    #handText{
+        font-size:18px;
+    }
+    #specialBtn{
+        font-size:16px;
+        padding:8px 16px;
+    }
 }
 </style>
 </head>
@@ -351,3 +403,4 @@ class JSConfetti{
 </script>
 </body>
 </html>
+
